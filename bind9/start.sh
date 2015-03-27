@@ -1,13 +1,21 @@
 #/bin/bash
 
-function PackageInstalledCheck(){
+PackageInstalledCheck(){
 	packagename=$1
-
+	installstr="install ok installed"
+	isinstalled=$(dpkg -s $packagename | grep "$installstr")
+	if [ "$isinstalled" ] 
+	then
+		echo "$packagename is already installed"
+	else
+		aptitude install -y $packagename
+	fi
 }
 
-#aptitude install -y bind9
 
+PackageInstalledCheck bind9
 
-#cp -r zone/ /etc/bind
-#cp named.conf.local /etc/bind
-#service bind9 restart
+cp -r zone/ /etc/bind
+cp named.conf.local /etc/bind
+service bind9 restart
+echo "bind9 setting is complete"
