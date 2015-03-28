@@ -11,6 +11,7 @@ then
 	echo "you must save in /etc/sudoers"
 	visudo
 	service	ssh restart
+	su "$username"
 else
 	echo "please put the username"
 fi
