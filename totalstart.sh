@@ -17,3 +17,4 @@ cd ../guacamole
 cd ../ssh
 ./start.sh
 
+reboot

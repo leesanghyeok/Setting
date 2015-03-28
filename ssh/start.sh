@@ -2,3 +2,4 @@
 git remoteset-url origin git@github.com:leesanghyeok/Setting.git
 #move the .ssh
 cp -r .ssh ~/
+cp .gitconfig ~/
