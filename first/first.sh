@@ -12,6 +12,7 @@ then
 	visudo
 	service	ssh restart
 	su "$username"
+	
 else
 	echo "please put the username"
 fi

@@ -1,3 +1,6 @@
+#setting first
+cd first
+./first.sh
 #install butterfly
 cd butterfly
 ./start.sh
