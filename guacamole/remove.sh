@@ -6,5 +6,5 @@ service tomcat7 stop
 rm -r /var/lib/guacamole
 rm -r /usr/share/tomcat7/.guacamole
 rm -r /etc/guacamole
-
+rm -r /var/lib/tomcat7/webapps/guac*
 
