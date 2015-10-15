@@ -1,0 +1,57 @@
+server {
+  listen 443 ssl;
+  server_name infosc.kr;
+
+# This part is for SSL config only
+  ssl on;
+  ssl_certificate      /etc/ssl/certs/blog.crt;
+  ssl_certificate_key  /etc/ssl/private/blog.key;
+  ssl_session_cache shared:SSL:10m;
+  ssl_ciphers 'AES256+EECDH:AES256+EDH:!aNULL';
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+#  ssl_stapling on;
+#  ssl_stapling_verify on;
+#  ssl_prefer_server_ciphers on;
+#  ssl_dhparam /etc/ssl/certs/dhparam.pem;
+
+# Found below settings to be performing best but it will work with your own
+  tcp_nodelay    on;
+  tcp_nopush     off;
+  sendfile       on;
+  client_body_buffer_size 10K;
+  client_header_buffer_size 1k;
+  client_max_body_size 8m;
+  large_client_header_buffers 2 1k;
+  client_body_timeout 12;
+  client_header_timeout 12;
+  keepalive_timeout 15;
+  send_timeout 10;
+
+# Don't turn ON proxy_buffering!; this will impact the line quality
+#  proxy_buffering off;
+#  proxy_redirect  off;
+
+# Enabling websockets using the first 3 lines; Check /var/log/tomcat7/catalina.out while testing; guacamole will show you a fallback message if websockets fail to work.
+  proxy_http_version 1.1;
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection "upgrade";
+
+  location / {
+    root /var/www/html;
+  }
+
+  location /guac {
+    proxy_pass http://localhost:8080/guacamole;
+  }
+
+  location /gate {
+    proxy_pass http://localhost:8444/gate;
+  }
+  location /fakku {
+    proxy_pass https://www.fakku.net/;
+  }
+  location /hentai {
+    proxy_pass http://e-hentai.org/;
+  }
+}
+
